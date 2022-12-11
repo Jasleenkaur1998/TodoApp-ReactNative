@@ -22,6 +22,10 @@ const UserSchema = new Schema({
         required: true,
     },
 
+    contact: {
+        type: Number
+    }
+
 }, {
     // This gives created at and updated at
     timestamps: true

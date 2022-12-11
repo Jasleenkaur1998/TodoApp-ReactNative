@@ -5,11 +5,14 @@ const mongoose = require("mongoose");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const validateToken = require("./middleware/auth");
+const morgan = require("morgan");
+
 require("dotenv").config();
 
 
 // This will parse incoming requests
 app.use(express.json());
+app.use(morgan('dev'));
 
 // swagger
 const swaggerOptions = {

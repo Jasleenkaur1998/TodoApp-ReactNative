@@ -20,6 +20,7 @@ const registerUser = async (req, res) => {
       name: data.name,
       email: data.email,
       password: encryptedPassword,
+      contact: data.contact,
     });
 
     return res.status(201).json({
