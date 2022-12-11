@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const validateToken = require("../middleware/auth");
+
 const {
     registerUser,
     loginUser,
@@ -14,9 +16,9 @@ router.post("/register", registerUser);
 
 router.post("/login", loginUser);
 
-router.get("/", getUser);
+router.get("/", validateToken, getUser);
 
-router.get("/:id", getUserById);
+router.get("/:id", validateToken, getUserById);
 
 // router.delete("/:id", deleteUser);
 

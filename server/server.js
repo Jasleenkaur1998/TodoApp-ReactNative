@@ -4,6 +4,7 @@ const PORT = 8080;
 const mongoose = require("mongoose");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const validateToken = require("./middleware/auth");
 require("dotenv").config();
 
 
@@ -42,7 +43,7 @@ mongoose.connect(process.env.MONGO_URI, (error) => {
 
 app.use("/api/v1/users", userRoutes);
 
-app.use("/api/v1/todos", todoRoutes);
+app.use("/api/v1/todos", validateToken, todoRoutes);
 
 /**
  * @swagger

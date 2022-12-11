@@ -39,6 +39,7 @@ const registerUser = async (req, res) => {
  * @param {*} res
  */
 const getUser = (req, res) => {
+
   User.find()
     .then((result) => {
       return res.status(200).json({
@@ -59,6 +60,9 @@ const getUser = (req, res) => {
  * @param {*} res
  */
 const getUserById = (req, res) => {
+
+ console.log(req.email, "incoming email");
+
   User.findOne({ _id: req.params.id })
     .then((result) => {
       return res.status(200).json({
