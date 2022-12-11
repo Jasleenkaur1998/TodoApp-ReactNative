@@ -1,4 +1,4 @@
-const { User } = require("../models/user");
+const  User  = require("../models/user");
 const Todo = require("../models/todo");
 
 /**
@@ -14,7 +14,7 @@ const addTodo = async (req, res) => {
     
     const data = req.body;
 
-    const findUser = await User.findById(whoCreated);
+    const findUser = await User.findOne({ email: whoCreated });
 
     const reviewData = await Todo.create({
       title: data.title,
@@ -41,7 +41,9 @@ const addTodo = async (req, res) => {
  * @param {*} res
  */
 const getTodos = (req, res) => {
-  Todo.find()
+  Todo.find().populate({
+    path: "user",
+  })
     .then((result) => {
       return res.status(200).json({
         message: "Succesfully fetched all Todos",
@@ -60,8 +62,8 @@ const getTodos = (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-const getTodoById = (req, res) => {
-  Todo.find({ user: req.params.id })
+const getTodoByUserId = (req, res) => {
+  Todo.findOne({ email: req.email })
     .populate({
       path: "user",
     })
@@ -85,6 +87,7 @@ const getTodoById = (req, res) => {
  */
 const deleteTodo = (req, res) => {
   const id = req.params.id;
+
   Todo.findByIdAndDelete(id)
     .then((result) => {
       return res.status(200).json({
@@ -119,7 +122,7 @@ const updateTodo = (req, res) => {
 module.exports = {
   addTodo,
   getTodos,
-  getTodoById,
+  getTodoByUserId,
   deleteTodo,
   updateTodo,
 };

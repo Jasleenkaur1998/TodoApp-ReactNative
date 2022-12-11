@@ -2,14 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    addTodo,
-    // getTodo,
-    // getTodoById,
-    // deleteTodo,
-    // updateTodo,
-    getTodos
+  addTodo,
+  getTodoByUserId,
+  deleteTodo,
+  updateTodo,
+  getTodos,
 } = require("../controller/todo");
-
 
 // Routes
 /**
@@ -22,7 +20,6 @@ const {
  *         description: return positive response
  */
 router.post("/add", addTodo);
-
 
 // Routes
 /**
@@ -46,7 +43,7 @@ router.get("/", getTodos);
  *       200:
  *         description: return positive response
  */
-// router.get("/:id", getTodoById);
+router.get("/:id", getTodoByUserId);
 
 // Routes
 /**
@@ -58,8 +55,7 @@ router.get("/", getTodos);
  *       200:
  *         description: return positive response
  */
-// router.put("/:id", updateTodo);
-
+router.put("/:id", updateTodo);
 
 // Routes
 /**
@@ -71,7 +67,6 @@ router.get("/", getTodos);
  *       200:
  *         description: return positive response
  */
-// router.delete("/:id", deleteTodo);
-
+router.delete("/:id", deleteTodo);
 
 module.exports = router;
