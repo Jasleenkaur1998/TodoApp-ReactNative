@@ -3,7 +3,7 @@ const router = express.Router();
 
 const {
     registerUser,
-    // loginUser,
+    loginUser,
     getUser,
     // deleteUser,
     getUserById,
@@ -12,7 +12,7 @@ const {
 
 router.post("/register", registerUser);
 
-// router.post("/login", loginUser);
+router.post("/login", loginUser);
 
 router.get("/", getUser);
 

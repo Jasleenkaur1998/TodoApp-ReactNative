@@ -1,6 +1,7 @@
 
 const User = require("../models/user");
-var bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken");
 
 /**
  * @description API to create a User
@@ -8,8 +9,6 @@ var bcrypt = require('bcryptjs');
  * @param {*} res
  */
 const registerUser = async (req, res) => {
-
-    console.log(req.body);
 
   try {
     const data = req.body;
@@ -74,8 +73,45 @@ const getUserById = (req, res) => {
     });
 };
 
+
+
+const loginUser = async (req, res) => {
+    const data = req.body;
+
+    const foundUser = await  User.findOne({ email: data.email });
+    
+    if (foundUser) {
+
+        // This returns true or false
+        const isValidPassword = await bcrypt.compare(data.password, foundUser.password);
+
+        if (isValidPassword) {
+
+            const accessToken = jwt.sign({
+                name: foundUser.name,
+                email: foundUser.email
+            }, process.env.SECRET_KEY)
+
+            res.status(200).json({
+                message: "User Logged in!",
+                token: accessToken
+            })
+        } else {
+            res.status(401).json({
+                message: "Incorrect Password"
+            })
+        }
+
+    } else {
+        res.status(404).json({
+            message: "User doesn't exist, please register!"
+        })
+    }
+}
+
 module.exports = {
   registerUser,
   getUser,
   getUserById,
+  loginUser
 };
