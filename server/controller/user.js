@@ -1,35 +1,38 @@
-const { User } = require("../models/user");
+
+const User = require("../models/user");
+var bcrypt = require('bcryptjs');
 
 /**
- * @description API to create a User 
+ * @description API to create a User
  * @param {*} req
  * @param {*} res
  */
-
-
-
 const registerUser = async (req, res) => {
-    try {
+
+    console.log(req.body);
+
+  try {
     const data = req.body;
 
+    // Password Encryption
+    const encryptedPassword = await bcrypt.hash(data.password, 10);
+
     const userData = await User.create({
-        name: data.name,
-        email: data.email,
-        password: data.password
+      name: data.name,
+      email: data.email,
+      password: encryptedPassword,
     });
 
     return res.status(201).json({
-        message: "User Registered succesfully",
-        data: userData,
+      message: "User Registered succesfully",
+      data: userData,
     });
-
-    } catch (error) {
-        return res.status(500).json({
-        message: error.message,
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
     });
-    }
+  }
 };
-
 
 /**
  * @description API to fetch all Users from DB
@@ -37,17 +40,17 @@ const registerUser = async (req, res) => {
  * @param {*} res
  */
 const getUser = (req, res) => {
-    User.find()
+  User.find()
     .then((result) => {
-        return res.status(200).json({
+      return res.status(200).json({
         message: "Succesfully fetched all Users",
         data: result,
-        });
+      });
     })
     .catch((error) => {
-        return res.status(500).json({
-            message: error.message,
-        });
+      return res.status(500).json({
+        message: error.message,
+      });
     });
 };
 
@@ -57,23 +60,22 @@ const getUser = (req, res) => {
  * @param {*} res
  */
 const getUserById = (req, res) => {
-    User.findOne({ _id: req.params.id })
+  User.findOne({ _id: req.params.id })
     .then((result) => {
-        return res.status(200).json({
-            message: "Succesfully fetched User!",
-            data: result,
-        });
+      return res.status(200).json({
+        message: "Succesfully fetched User!",
+        data: result,
+      });
     })
     .catch((error) => {
-        return res.status(500).json({
-            message: error.message,
-        });
+      return res.status(500).json({
+        message: error.message,
+      });
     });
 };
 
-
 module.exports = {
-    registerUser,
-    getUser,
-    getUserById
+  registerUser,
+  getUser,
+  getUserById,
 };
