@@ -41,9 +41,9 @@ mongoose.connect(process.env.MONGO_URI, (error) => {
   }
 });
 
-app.use("/api/v1/users", userRoutes);
+app.use("/users", userRoutes);
 
-app.use("/api/v1/todos", validateToken, todoRoutes);
+app.use("/todos", validateToken, todoRoutes);
 
 /**
  * @swagger
