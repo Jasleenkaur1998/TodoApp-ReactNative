@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    // addTodo,
+    addTodo,
     // getTodo,
     // getTodoById,
     // deleteTodo,
@@ -21,7 +21,7 @@ const {
  *       200:
  *         description: return positive response
  */
-// router.post("/todo", addTodo);
+router.post("/add", addTodo);
 
 
 // Routes

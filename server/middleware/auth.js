@@ -5,10 +5,12 @@ const validateToken = (req, res, next) => {
 
     if (token) {
 
-        jwt.verify(token, process.env.SECRET_KEY, (error, decoded) => {
+        jwt.verify(token, process.env.SECRET_KEY, { algorithms: ['HS256']  }, (error, decoded) => {
+            console.log(process.env.SECRET_KEY);
             if (error) {
                 res.status(403).json({
-                    message: "Access token Invalid"
+                    message: "Access token Invalid",
+                    error
                 }) 
             }
 

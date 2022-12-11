@@ -9,18 +9,19 @@ const Todo = require("../models/todo");
 
 const addTodo = async (req, res) => {
   try {
+
+    const whoCreated = req.email;
+    
     const data = req.body;
 
-    const findUser = await User.findById(data.user);
-
-    if (!findUser) {
-      return res.status(404).json({
-        message: "User not found",
-      });
-    }
+    const findUser = await User.findById(whoCreated);
 
     const reviewData = await Todo.create({
-      todo: data.todo,
+      title: data.title,
+      description: data.description,
+      due: data.due,
+      priority: data.priority,
+      user: findUser._id
     });
 
     return res.status(201).json({
