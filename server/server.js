@@ -29,7 +29,7 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-// const todoRoutes = require("./routes/todo");
+const todoRoutes = require("./routes/todo");
 const userRoutes = require("./routes/user");
 
 mongoose.connect(process.env.MONGO_URI, (error) => {
@@ -42,7 +42,7 @@ mongoose.connect(process.env.MONGO_URI, (error) => {
 
 app.use("/api/v1/users", userRoutes);
 
-// app.use("/api/v1/todos", todoRoutes);
+app.use("/api/v1/todos", todoRoutes);
 
 /**
  * @swagger

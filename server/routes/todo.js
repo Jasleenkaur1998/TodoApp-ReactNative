@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    addTodo,
-    getTodo,
-    getTodoById,
-    deleteTodo,
-    updateTodo
+    // addTodo,
+    // getTodo,
+    // getTodoById,
+    // deleteTodo,
+    // updateTodo,
+    getTodos
 } = require("../controller/todo");
 
-// const validateToken = require("../middleware/auth");
 
 // Routes
 /**
@@ -21,7 +21,7 @@ const {
  *       200:
  *         description: return positive response
  */
-router.post("/todo", addTodo);
+// router.post("/todo", addTodo);
 
 
 // Routes
@@ -34,7 +34,7 @@ router.post("/todo", addTodo);
  *       200:
  *         description: return positive response
  */
-router.get("/", Todos);
+router.get("/", getTodos);
 
 // Routes
 /**
@@ -46,7 +46,7 @@ router.get("/", Todos);
  *       200:
  *         description: return positive response
  */
-router.get("/:id", getTodoById);
+// router.get("/:id", getTodoById);
 
 // Routes
 /**
@@ -58,7 +58,7 @@ router.get("/:id", getTodoById);
  *       200:
  *         description: return positive response
  */
-router.put("/:id", updateTodo);
+// router.put("/:id", updateTodo);
 
 
 // Routes
@@ -71,7 +71,7 @@ router.put("/:id", updateTodo);
  *       200:
  *         description: return positive response
  */
-router.delete("/:id", deleteTodo);
+// router.delete("/:id", deleteTodo);
 
 
 module.exports = router;

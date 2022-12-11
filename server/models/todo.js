@@ -1,26 +1,39 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
 //Creating the Todo Schema
 
 const TodoSchema = new Schema({
+  title: {
+    type: String,
+    minlength: 1,
+    required: true,
+  },
 
-    task: {
-        type: String,
-        minlength: 1,
-        required: true
-    },
+  description: {
+    type: String,
+    minlength: 1
+  },
 
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
+  due: {
+    type: Date,
+  }, 
 
-})
+  priority: {
+    type: String,
+    required: true
+  },
 
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+}, {
+    timestamps: true
+});
 
 //Exporting the Schema
-const Todo = mongoose.model('Todo', TodoSchema)
+const Todo = mongoose.model("Todo", TodoSchema);
 
 module.exports = Todo;
