@@ -64,7 +64,7 @@ router.put("/:id", updateTodo);
 // Routes
 /**
  * @swagger
- * /doctor/:id:
+ * /todo/:id:
  *   delete:
  *     description: Delete a Todo using id from the database
  *     responses:
