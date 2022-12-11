@@ -4,8 +4,8 @@ const PORT  = 8080;
 const mongoose = require("mongoose");
 require('dotenv').config();
 
-const todoRoutes = require("./routes/todo");
-const userRoutes = require("./routes/user");
+// const todoRoutes = require("./routes/todo");
+// const userRoutes = require("./routes/user");
 
 mongoose.connect(process.env.MONGO_URI, (error) => {
     if (error) {
@@ -16,9 +16,9 @@ mongoose.connect(process.env.MONGO_URI, (error) => {
 })
 
 
-app.use("/api/v1/users", userRoutes);
+// app.use("/api/v1/users", userRoutes);
 
-app.use("/api/v1/todos", todoRoutes);
+// app.use("/api/v1/todos", todoRoutes);
 
 
 app.get("/", (request, response) => {
