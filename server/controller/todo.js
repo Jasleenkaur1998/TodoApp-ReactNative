@@ -82,8 +82,49 @@ const getTodoById = (req, res) => {
 };
 
 
+/**
+ * @description API to delete todo
+ * @param {*} req
+ * @param {*} res
+ */
+const deleteTodo = (req, res) => {
+    const id = req.params.id;
+    Todo.findByIdAndDelete(id)
+        .then((result) => {
+        return res.status(200).json({
+            message: "Todo succesfully delete",
+        });
+    })
+    .catch((error) => {
+        return res.status(500).json({
+            message: error.message,
+        });
+    });
+};
+
+/**
+ * @description API to update Todo
+ * @param {*} req
+ * @param {*} res
+ */
+const updateTodo = (req, res) => {
+    const id = req.params.id;
+
+    Todo.findOneAndUpdate({ _id: id }, req.body, {
+        returnOrignal: false,
+    }).then((result) => {
+        res.status(200).json({
+            message: "Succesfully updated the Todo",
+            data: result,
+    });
+    });
+};
+
+
 module.exports = {
     addTodo,
     getTodo,
-    getTodoById
+    getTodoById,
+    deleteTodo,
+    updateTodo
 };
