@@ -42,9 +42,17 @@ const getUser = (req, res) => {
 
   User.find()
     .then((result) => {
+
+      const data = result.map((user) => {
+        return {
+          name: user.name,
+          email: user.email,
+        };
+      })
+
       return res.status(200).json({
         message: "Succesfully fetched all Users",
-        data: result,
+        data,
       });
     })
     .catch((error) => {
