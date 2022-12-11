@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { BASE_URL_DEV } from "@env";
-import { Alert } from 'react-native';
+import { Alert } from "react-native";
 
 export const AuthContext = createContext();
 
@@ -53,9 +53,8 @@ export const AuthProvider = ({ children }) => {
 
   const isLoggedIn = async () => {
     try {
-
       let userInfo = await AsyncStorage.getItem("userInfo");
-     
+
       if (userInfo) {
         userInfo = JSON.parse(userInfo);
         setUserInfo(userInfo);
@@ -81,5 +80,4 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-
 };
