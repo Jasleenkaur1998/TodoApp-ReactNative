@@ -21,12 +21,12 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true,
-      },
+    },
 
 })
 
 
 //Exporting the Schema
-const User = mongoose.model('Todo', UserSchema)
+const User = mongoose.model('User', UserSchema)
 
 module.exports = User;
