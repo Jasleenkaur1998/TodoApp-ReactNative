@@ -8,7 +8,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
-  console.log(`${BASE_URL_DEV}/users/register`);
+  
   const registerUser = ({ name, email, password }, navigation) => {
     axios
       .post(`${BASE_URL_DEV}/users/register`, {
@@ -17,9 +17,7 @@ export const AuthProvider = ({ children }) => {
         password,
       })
       .then((res) => {
-        let userInfo = res.data;
-        setUserInfo(userInfo);
-        AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
+        Alert.alert(res.message);
         navigation.navigate("user-login");
       })
       .catch((e) => {
@@ -37,10 +35,11 @@ export const AuthProvider = ({ children }) => {
         let userInfo = res.data;
         setUserInfo(userInfo);
         AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
+        Alert.alert(res.data.message);
         navigation.navigate("home");
       })
       .catch((e) => {
-        Alert.alert("error", e.message);
+        Alert.alert("Error", e.message);
         console.log(e);
       });
   };
