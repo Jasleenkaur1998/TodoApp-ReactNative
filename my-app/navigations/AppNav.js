@@ -5,6 +5,7 @@ import AuthStack from "./AuthStack";
 
 const AppNav = () => {
   const { userInfo } = useContext(AuthContext);
+
   return <>{userInfo ? <AppStack /> : <AuthStack />}</>;
 };
 

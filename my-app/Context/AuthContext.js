@@ -8,7 +8,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
-  
+
   const registerUser = ({ name, email, password }, navigation) => {
     axios
       .post(`${BASE_URL_DEV}/users/register`, {
