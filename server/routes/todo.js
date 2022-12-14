@@ -12,7 +12,7 @@ const {
 // Routes
 /**
  * @swagger
- * /register:
+ * /add:
  *   post:
  *     description: Add a new Todo
  *     responses:

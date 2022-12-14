@@ -9,10 +9,9 @@ const morgan = require("morgan");
 
 require("dotenv").config();
 
-
 // This will parse incoming requests
 app.use(express.json());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 // swagger
 const swaggerOptions = {
@@ -35,6 +34,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const todoRoutes = require("./routes/todo");
 const userRoutes = require("./routes/user");
+const ROLE = require("./config/roles");
+const verifyRoles = require("./middleware/roles");
 
 mongoose.connect(process.env.MONGO_URI, (error) => {
   if (error) {
@@ -46,7 +47,12 @@ mongoose.connect(process.env.MONGO_URI, (error) => {
 
 app.use("/users", userRoutes);
 
-app.use("/todos", validateToken, todoRoutes);
+app.use(
+  "/todos",
+  validateToken,
+  verifyRoles(ROLE.ADMIN, ROLE.PERSON),
+  todoRoutes
+);
 
 /**
  * @swagger

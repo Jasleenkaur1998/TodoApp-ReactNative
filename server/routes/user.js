@@ -7,22 +7,57 @@ const {
     registerUser,
     loginUser,
     getUser,
-    // deleteUser,
     getUserById,
-    // updateUser
 } = require("../controller/user");
+const ROLE = require("../config/roles");
+const verifyRoles = require("../middleware/roles");
 
+/**
+ * @swagger
+ * users/register:
+ *   post:
+ *     description: Add a new user
+ *     responses:
+ *       200:
+ *         description: return positive response
+ */
 router.post("/register", registerUser);
 
+
+/**
+ * @swagger
+ * users/login:
+ *   post:
+ *     description: Get all the Todos
+ *     responses:
+ *       200:
+ *         description: return positive response
+ */
 router.post("/login", loginUser);
 
-router.get("/", validateToken, getUser);
 
-router.get("/:id", validateToken, getUserById);
+/**
+ * @swagger
+ * /users/
+ *   get:
+ *     description: Get information of a Todo using id
+ *     responses:
+ *       200:
+ *         description: return positive response
+ */
+router.get("/", validateToken, verifyRoles(ROLE.ADMIN), getUser);
 
-// router.delete("/:id", deleteUser);
+/**
+ * @swagger
+ * /users/:id:
+ *   get:
+ *     description: Get information of a Todo using id
+ *     responses:
+ *       200:
+ *         description: return positive response
+ */
+router.get("/:id", validateToken,  verifyRoles(ROLE.ADMIN, ROLE.PERSON), getUserById);
 
-// router.put("/:id", updateUser);
 
 
 module.exports = router;

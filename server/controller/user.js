@@ -91,7 +91,7 @@ const getUserById = (req, res) => {
 const loginUser = async (req, res) => {
     const data = req.body;
 
-    const foundUser = await  User.findOne({ email: data.email });
+    const foundUser = await  User.findOne({ email: data.email.toLowerCase() });
     
     if (foundUser) {
 
@@ -107,7 +107,8 @@ const loginUser = async (req, res) => {
 
             res.status(200).json({
                 message: "User Logged in!",
-                token: accessToken
+                token: accessToken,
+                user: foundUser
             })
         } else {
             res.status(401).json({
