@@ -2,6 +2,7 @@
 const User = require("../models/user");
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
+const ROLE = require("../config/roles");
 
 /**
  * @description API to create a User
@@ -33,6 +34,7 @@ const registerUser = async (req, res) => {
     });
   }
 };
+
 
 /**
  * @description API to fetch all Users from DB
@@ -87,6 +89,43 @@ const getUserById = (req, res) => {
 };
 
 
+const loginAdmin = async (req, res) => {
+  const data = req.body;
+
+  const foundUser = await  User.findOne({ email: data.email.toLowerCase() });
+  
+  if (foundUser) {
+
+      // This returns true or false
+      const isValidPassword = await bcrypt.compare(data.password, foundUser.password);
+
+      if (isValidPassword) {
+
+          const accessToken = jwt.sign({
+              name: foundUser.name,
+              email: foundUser.email,
+              role: ROLE.ADMIN
+          }, process.env.SECRET_KEY)
+
+          res.status(200).json({
+              message: "Admin Logged in!",
+              token: accessToken,
+              user: foundUser
+          })
+      } else {
+          res.status(401).json({
+              message: "Incorrect Password"
+          })
+      }
+
+  } else {
+      res.status(404).json({
+          message: "User doesn't exist, please register!"
+      })
+  }
+}
+
+
 
 const loginUser = async (req, res) => {
     const data = req.body;
@@ -102,7 +141,8 @@ const loginUser = async (req, res) => {
 
             const accessToken = jwt.sign({
                 name: foundUser.name,
-                email: foundUser.email
+                email: foundUser.email,
+                role: ROLE.PERSON
             }, process.env.SECRET_KEY)
 
             res.status(200).json({
@@ -127,5 +167,6 @@ module.exports = {
   registerUser,
   getUser,
   getUserById,
-  loginUser
+  loginUser,
+  loginAdmin
 };

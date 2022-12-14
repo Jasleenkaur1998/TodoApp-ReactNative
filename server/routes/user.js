@@ -8,6 +8,7 @@ const {
     loginUser,
     getUser,
     getUserById,
+    loginAdmin,
 } = require("../controller/user");
 const ROLE = require("../config/roles");
 const verifyRoles = require("../middleware/roles");
@@ -38,7 +39,19 @@ router.post("/login", loginUser);
 
 /**
  * @swagger
- * /users/
+ * users/admin/login:
+ *   post:
+ *     description: Get all the Todos
+ *     responses:
+ *       200:
+ *         description: return positive response
+ */
+ router.post("/admin/login", loginAdmin);
+
+
+/**
+ * @swagger
+ * /
  *   get:
  *     description: Get information of a Todo using id
  *     responses:
