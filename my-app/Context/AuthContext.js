@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
 
   const registerUser = ({ name, email, password }, navigation) => {
+    console.log(`${BASE_URL_DEV}/users/register`);
     axios
       .post(`${BASE_URL_DEV}/users/register`, {
         name,
@@ -17,7 +18,7 @@ export const AuthProvider = ({ children }) => {
         password,
       })
       .then((res) => {
-        Alert.alert(res.message);
+        Alert.alert(res.data.message);
         navigation.navigate("user-login");
       })
       .catch((e) => {
