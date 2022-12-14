@@ -43,8 +43,8 @@ export default function Home({ navigation }) {
       </Heading>
 
       <Flex direction="row" flexWrap="wrap">
-        {todoList.map((todo) => {
-          return <StoryBook data={todo}></StoryBook>
+        {todoList.map((todo, index) => {
+          return <StoryBook key={index} data={todo}></StoryBook>
         })}
       </Flex>
 
