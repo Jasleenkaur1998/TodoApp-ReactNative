@@ -50,7 +50,7 @@ app.use("/users", userRoutes);
 app.use(
   "/todos",
   validateToken,
-  verifyRoles(ROLE.ADMIN, ROLE.PERSON),
+  // verifyRoles(ROLE.ADMIN, ROLE.PERSON),
   todoRoutes
 );
 

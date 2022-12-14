@@ -20,7 +20,7 @@ const registerUser = async (req, res) => {
 
     const userData = await User.create({
       name: data.name,
-      email: data.email,
+      email: data.email.toLowerCase(),
       password: encryptedPassword,
       contact: data.contact,
     });
