@@ -3,6 +3,7 @@ const User = require("../models/user");
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const ROLE = require("../config/roles");
+const sendEmail = require("../utils/email");
 
 /**
  * @description API to create a User
@@ -23,6 +24,14 @@ const registerUser = async (req, res) => {
       password: encryptedPassword,
       contact: data.contact,
     });
+
+    sendEmail(
+      data.email, 
+      "Account created",
+      { name: data.name },
+      "../utils/email.handlebars"
+  )
+
 
     return res.status(201).json({
       message: "User Registered succesfully",
